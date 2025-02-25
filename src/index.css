@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-primary text-secondary antialiased;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-[1200px] mx-auto px-4;
+  }
+  
+  .btn {
+    @apply px-6 py-3 rounded-full font-medium transition-all duration-300;
+  }
+  
+  .btn-primary {
+    @apply bg-accent hover:bg-accent/90 text-white;
+  }
+  
+  .section {
+    @apply py-20 text-center;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-purple-500 to-blue-500 animate-gradient;
+  }
+
+  .nav-link {
+    @apply relative py-2 text-gray-300 hover:text-white transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  .service-grid {
+    @apply grid grid-cols-2 gap-6;  /* 2 columns for services */
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .bento-item {
+    @apply bg-white/5 backdrop-blur-lg rounded-3xl p-6 transition-all duration-300 hover:transform hover:scale-[1.02] hover:bg-white/10;
+  }
+
+  .work-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+  }
+
+  .work-item {
+    @apply bg-white/5 backdrop-blur-lg rounded-3xl overflow-hidden transition-all duration-300 hover:transform hover:scale-[1.02] hover:bg-white/10;
+  }
+
+  .work-item-content {
+    @apply p-6;
+  }
+
+  .work-image {
+    @apply w-full h-48 object-cover;
+  }
+
+  .footer {
+    @apply py-12 bg-white/5 backdrop-blur-lg mt-20;
+  }
+
+  .footer-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8;
+  }
+
+  .footer-column {
+    @apply space-y-4;
+  }
+
+  .footer-title {
+    @apply text-white text-lg font-semibold mb-4;
+  }
+
+  .footer-link {
+    @apply text-gray-300 hover:text-white transition-colors duration-300 block py-1;
+  }
+
+  .footer-bottom {
+    @apply mt-12 pt-8 border-t border-white/10 text-center text-gray-400;
+  }
+}
+
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}

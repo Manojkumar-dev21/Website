@@ -1,20 +1,33 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Code2, Laptop, Smartphone, Users, Zap, Palette, Globe, Shield } from 'lucide-react';
+import { ArrowRight, Code2, Laptop, Smartphone, Users, Zap, Palette, Globe, Shield, MapPin, Phone, Mail, Clock, Twitter, Linkedin, Instagram, Facebook, Youtube, Github } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-grid">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <header className="container pt-32 pb-16 relative">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.1 }}
-          transition={{ duration: 1 }}
-          className="absolute inset-0 bg-gradient-to-r from-accent via-purple-500 to-blue-500 blur-[100px] -z-10"
-        />
+      <header className="min-h-screen w-full relative flex items-center justify-center overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 bg-grid-white opacity-[0.03] animate-grid" />
+          
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black/90" />
+          
+          {/* Animated Glow */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.15 }}
+            transition={{ duration: 1 }}
+            className="absolute inset-0 bg-gradient-to-br from-accent via-purple-500 to-blue-500 blur-[120px]"
+          />
+        </div>
         
-        <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/[0.02] border-b border-white/[0.1] shadow-lg">
+        {/* Navigation */}
+        <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/[0.02] border-b border-white/[0.1] shadow-lg">
           <div className="container flex items-center justify-between h-20">
             <motion.h1 
               initial={{ opacity: 0, x: -20 }}
@@ -36,46 +49,75 @@ function App() {
             </motion.div>
             
             {/* Mobile Menu Button */}
-            <button className="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors">
-              <div className="w-6 h-0.5 bg-white mb-1.5"></div>
-              <div className="w-6 h-0.5 bg-white mb-1.5"></div>
-              <div className="w-6 h-0.5 bg-white"></div>
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors"
+            >
+              <div className={`w-6 h-0.5 bg-white mb-1.5 transition-transform ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
+              <div className={`w-6 h-0.5 bg-white mb-1.5 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}></div>
+              <div className={`w-6 h-0.5 bg-white transition-transform ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
             </button>
+
+            {/* Mobile Menu */}
+            {isMenuOpen && (
+              <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute top-full left-0 right-0 bg-black/90 backdrop-blur-lg border-b border-white/10"
+              >
+                <div className="container py-4 flex flex-col gap-4">
+                  <a href="#home" className="nav-link block py-2">Home</a>
+                  <a href="#about" className="nav-link block py-2">About</a>
+                  <a href="#services" className="nav-link block py-2">Services</a>
+                  <a href="#work" className="nav-link block py-2">Work</a>
+                  <a href="#contact" className="btn btn-primary w-full">Get Started</a>
+                </div>
+              </motion.div>
+            )}
           </div>
         </nav>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* Hero Content - Centered */}
+        <div className="container relative z-10 px-4 lg:px-0">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-center lg:text-left"
+            className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-7xl font-bold leading-tight mb-6">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-6">
               We Create
               <span className="gradient-text block">Digital Solutions</span>
               for Your Business
             </h1>
-            <p className="text-xl text-gray-400 mb-8">
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto">
               Transform your digital presence with our expert web development and design services.
             </p>
-            <button className="btn btn-primary flex items-center gap-2 mx-auto lg:mx-0">
-              Get Started <ArrowRight size={20} />
+            <button className="btn btn-primary flex items-center justify-center gap-2 mx-auto w-full sm:w-auto px-8 py-4 text-lg">
+              Get Started <ArrowRight className="w-6 h-6" />
             </button>
           </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4 }}
-            className="grid grid-cols-2 gap-4"
-          >
-          </motion.div>
         </div>
+
+        {/* Scroll Indicator */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+              className="w-1 h-1 rounded-full bg-white"
+            />
+          </div>
+        </motion.div>
       </header>
 
       {/* About Section */}
-      <section id="about" className="section relative">
+      <section id="about" className="section relative py-12 sm:py-16 lg:py-24">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
@@ -83,8 +125,8 @@ function App() {
           className="absolute inset-0 bg-gradient-to-b from-purple-500/20 to-accent/20 blur-[100px] -z-10"
         />
         
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="container px-4 lg:px-0">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -109,11 +151,11 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-5xl font-bold mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6">
                 Transforming Ideas into
                 <span className="gradient-text block">Digital Reality</span>
               </h2>
-              <p className="text-gray-400 mb-8">
+              <p className="text-base sm:text-lg text-gray-400 mb-6 lg:mb-8">
                 We are a team of passionate developers and designers dedicated to creating exceptional digital experiences. With over 5 years of experience, we've helped businesses of all sizes achieve their digital goals.
               </p>
               <div className="grid grid-cols-2 gap-6 mb-8">
@@ -134,8 +176,114 @@ function App() {
         </div>
       </section>
 
+      {/* Why Choose Us Section - Moved here */}
+      <section className="section relative py-16 lg:py-24">
+        <div className="container px-4 lg:px-0">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Why Choose Us</h2>
+            <p className="text-base sm:text-lg text-gray-400">What sets us apart from the competition</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[240px] gap-4 lg:gap-6">
+            {[
+              {
+                icon: <Shield className="w-12 h-12" />,
+                title: "Proven Expertise",
+                desc: "Over 5 years of experience delivering exceptional digital solutions",
+                className: "md:col-span-2 lg:col-span-1 lg:row-span-2",
+                img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2070",
+                imgPosition: "object-left"
+              },
+              {
+                icon: <Zap className="w-12 h-12" />,
+                title: "Fast Delivery",
+                desc: "Quick turnaround times without compromising on quality",
+                className: "lg:col-span-2",
+                img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015",
+                imgPosition: "object-center"
+              },
+              {
+                icon: <Users className="w-12 h-12" />,
+                title: "Dedicated Support",
+                desc: "24/7 customer support and maintenance services",
+                className: "",
+                img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2068",
+                imgPosition: "object-center"
+              },
+              {
+                icon: <Globe className="w-12 h-12" />,
+                title: "Global Reach",
+                desc: "Serving clients worldwide with innovative solutions",
+                className: "md:col-span-2 lg:col-span-1",
+                img: "https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=80&w=2074",
+                imgPosition: "object-center"
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.5,
+                  delay: index * 0.2,
+                  ease: "easeOut"
+                }}
+                className={`group relative overflow-hidden rounded-3xl ${item.className}`}
+              >
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <img 
+                    src={item.img} 
+                    alt={item.title}
+                    className={`w-full h-full ${item.imgPosition} object-cover transition-transform duration-700 group-hover:scale-110`}
+                  />
+                  <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] group-hover:bg-black/40 transition-colors duration-300" />
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 p-6 h-full flex flex-col justify-end">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.3 + 0.2 }}
+                    className="text-accent mb-4 group-hover:scale-110 transition-transform"
+                  >
+                    {item.icon}
+                  </motion.div>
+                  <motion.h3 
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.3 + 0.3 }}
+                    className="text-xl font-bold mb-2"
+                  >
+                    {item.title}
+                  </motion.h3>
+                  <motion.p 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: index * 0.3 + 0.4 }}
+                    className="text-gray-300"
+                  >
+                    {item.desc}
+                  </motion.p>
+                </div>
+
+                {/* Hover Effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
-      <section id="services" className="section relative overflow-hidden">
+      <section id="services" className="section relative py-12 sm:py-16 lg:py-24">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
@@ -143,18 +291,13 @@ function App() {
           className="absolute inset-0 bg-gradient-to-b from-accent/20 via-purple-500/20 to-blue-500/20 blur-[100px] -z-10"
         />
         
-        <div className="container">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-5xl font-bold mb-4">Our Services</h2>
-            <p className="text-gray-400">Comprehensive digital solutions for modern businesses</p>
+        <div className="container px-4 lg:px-0">
+          <motion.div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 lg:mb-4">Our Services</h2>
+            <p className="text-base sm:text-lg text-gray-400">Comprehensive digital solutions for modern businesses</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[
               { icon: <Code2 size={32} />, title: "Web Development", desc: "Custom websites built with modern technologies" },
               { icon: <Smartphone size={32} />, title: "Mobile Development", desc: "Native and cross-platform mobile applications" },
@@ -184,19 +327,14 @@ function App() {
       </section>
 
       {/* Work Section */}
-      <section id="work" className="section">
-        <div className="container">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-5xl font-bold mb-4">Our Work</h2>
-            <p className="text-gray-400">Recent projects we're proud of</p>
+      <section id="work" className="section py-12 sm:py-16 lg:py-24">
+        <div className="container px-4 lg:px-0">
+          <motion.div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 lg:mb-4">Our Work</h2>
+            <p className="text-base sm:text-lg text-gray-400">Recent projects we're proud of</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
             {[
               { img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200", title: "E-commerce Platform" },
               { img: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200", title: "Mobile App" },
@@ -225,113 +363,296 @@ function App() {
         </div>
       </section>
 
+      {/* Development Roadmap Section */}
+      <section className="section relative py-16 lg:py-24 bg-gray-900/50">
+        <div className="container px-4 lg:px-0">
+          <motion.div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Development Roadmap</h2>
+            <p className="text-gray-400 text-lg">Our systematic approach to delivering excellence</p>
+          </motion.div>
+
+          <div className="relative">
+            {/* Vertical Timeline Line */}
+            <div className="absolute left-[50%] top-0 bottom-0 w-px bg-white/50 hidden lg:block" />
+
+            {/* Timeline Items */}
+            <div className="space-y-12">
+              {[
+                {
+                  phase: "01",
+                  title: "Discovery & Planning",
+                  description: "In-depth analysis of requirements and planning.",
+                  items: [
+                    "Requirements gathering",
+                    "Technical feasibility",
+                    "Project timeline",
+                    "Resource allocation"
+                  ],
+                  icon: <Users className="w-6 h-6" />
+                },
+                {
+                  phase: "02",
+                  title: "Design & Architecture",
+                  description: "Creating detailed designs and architecture.",
+                  items: [
+                    "UI/UX design",
+                    "System architecture",
+                    "Database design",
+                    "API specifications"
+                  ],
+                  icon: <Palette className="w-6 h-6" />
+                },
+                {
+                  phase: "03",
+                  title: "Development & Testing",
+                  description: "Agile development with continuous testing.",
+                  items: [
+                    "Frontend development",
+                    "Backend implementation",
+                    "Unit testing",
+                    "Integration testing"
+                  ],
+                  icon: <Code2 className="w-6 h-6" />
+                },
+                {
+                  phase: "04",
+                  title: "Deployment & Support",
+                  description: "Smooth deployment and maintenance.",
+                  items: [
+                    "Production deployment",
+                    "Performance monitoring",
+                    "User training",
+                    "Maintenance support"
+                  ],
+                  icon: <Zap className="w-6 h-6" />
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ 
+                    duration: 0.5,
+                    delay: index * 0.3 
+                  }}
+                  className={`flex flex-col lg:flex-row gap-8 ${
+                    index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                  }`}
+                >
+                  {/* Card Container */}
+                  <div className="lg:w-[45%] flex justify-end">
+                    <div className={`relative w-full max-w-md p-6 rounded-2xl border border-accent/30 bg-gray-800/50 backdrop-blur-sm ${
+                      index % 2 === 0 ? 'lg:text-right' : 'lg:text-left'
+                    }`}>
+                      {/* Phase Number */}
+                      <span className="absolute -top-4 left-6 text-5xl font-bold text-accent/20">
+                        {item.phase}
+                      </span>
+                      
+                      <div className="space-y-4">
+                        {/* Icon and Title */}
+                        <div className={`flex items-center gap-3 ${
+                          index % 2 === 0 ? 'lg:flex-row-reverse' : ''
+                        }`}>
+                          <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                            {item.icon}
+                          </div>
+                          <h3 className="text-xl font-bold">{item.title}</h3>
+                        </div>
+                        
+                        {/* Description */}
+                        <p className="text-gray-400">{item.description}</p>
+                        
+                        {/* Items List */}
+                        <ul className="space-y-2">
+                          {item.items.map((listItem, i) => (
+                            <li key={i} className={`flex items-center gap-2 text-sm ${
+                              index % 2 === 0 ? 'lg:flex-row-reverse' : ''
+                            }`}>
+                              <ArrowRight className="w-4 h-4 text-accent flex-shrink-0" />
+                              <span className="text-gray-400">{listItem}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Timeline Dot */}
+                  <div className="hidden lg:flex items-center justify-center w-12">
+                    <div className="w-4 h-4 rounded-full bg-accent relative">
+                      <div className="absolute inset-0 rounded-full bg-accent animate-ping opacity-25" />
+                    </div>
+                  </div>
+                  
+                  {/* Empty Space for Alignment */}
+                  <div className="lg:w-[45%]" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="section relative">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.1 }}
-          transition={{ duration: 1 }}
-          className="absolute inset-0 bg-gradient-to-t from-accent/20 via-purple-500/20 to-blue-500/20 blur-[100px] -z-10"
-        />
-        
-        <div className="container">
+      <section id="contact" className="section relative py-12 sm:py-16 lg:py-24 bg-gray-900/50">
+        <div className="container px-4 lg:px-0">
+          {/* Single Column Layout */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-xl mx-auto text-center"
+            className="max-w-2xl mx-auto"
           >
-            <h2 className="text-5xl font-bold mb-4">Let's Work Together</h2>
-            <p className="text-gray-400 mb-8">Ready to start your next project? Contact us for a free consultation.</p>
-            <form className="space-y-4">
-              <input 
-                type="text" 
-                placeholder="Your Name" 
-                className="w-full px-4 py-3 bg-white/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent backdrop-blur-sm"
-              />
-              <input 
-                type="email" 
-                placeholder="Your Email" 
-                className="w-full px-4 py-3 bg-white/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent backdrop-blur-sm"
-              />
-              <textarea 
-                placeholder="Your Message" 
-                rows={4}
-                className="w-full px-4 py-3 bg-white/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent backdrop-blur-sm"
-              ></textarea>
-              <button type="submit" className="btn btn-primary w-full">
-                Send Message
-              </button>
-            </form>
+            <div className="text-center mb-8">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 lg:mb-4">Let's Work Together</h2>
+              <p className="text-base sm:text-lg text-gray-400">
+                Ready to start your next project? Contact us for a free consultation.
+              </p>
+            </div>
+            
+            <div className="bg-gray-800/50 backdrop-blur-sm p-8 rounded-2xl">
+              <form 
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.currentTarget);
+                  try {
+                    const response = await fetch('/api/contact', {
+                      method: 'POST',
+                      body: JSON.stringify({
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        message: formData.get('message')
+                      }),
+                      headers: {
+                        'Content-Type': 'application/json'
+                      }
+                    });
+                    
+                    if (response.ok) {
+                      alert('Message sent successfully!');
+                      e.currentTarget.reset();
+                    } else {
+                      throw new Error('Failed to send message');
+                    }
+                  } catch (error) {
+                    alert('Failed to send message. Please try again.');
+                  }
+                }}
+                className="space-y-4"
+              >
+                <input 
+                  name="name"
+                  type="text" 
+                  required
+                  placeholder="Your Name" 
+                  className="w-full px-4 py-3 bg-white/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent backdrop-blur-sm"
+                />
+                <input 
+                  name="email"
+                  type="email" 
+                  required
+                  placeholder="Your Email" 
+                  className="w-full px-4 py-3 bg-white/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent backdrop-blur-sm"
+                />
+                <textarea 
+                  name="message"
+                  placeholder="Your Message" 
+                  required
+                  rows={4}
+                  className="w-full px-4 py-3 bg-white/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent backdrop-blur-sm"
+                ></textarea>
+                <button 
+                  type="submit" 
+                  className="btn btn-primary w-full flex items-center justify-center gap-2"
+                >
+                  Send Message
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </form>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-grid">
-            <div className="footer-column">
-              <h3 className="footer-title">Radison</h3>
-              <p className="text-gray-400 mb-4">
+      <footer className="relative py-12 sm:py-16 overflow-hidden">
+        {/* Grid Pattern Background with Gradient */}
+        <div className="absolute inset-0">
+          {/* Animated Grid Pattern */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-grid-white opacity-[0.03] animate-grid" />
+            <div className="absolute inset-0" style={{
+              background: `
+                linear-gradient(0deg, rgba(0,0,0,0.95) 0%, 
+                rgba(17,24,39,0.7) 50%, 
+                rgba(59,130,246,0.2) 100%)
+              `
+            }} />
+          </div>
+          
+          {/* Additional Glow Effects */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          </div>
+        </div>
+        
+        {/* Content */}
+        <div className="container relative z-10 px-4 lg:px-0">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold gradient-text">Radison</h3>
+              <p className="text-gray-400">
                 Creating exceptional digital experiences for forward-thinking businesses.
               </p>
-              <div className="flex gap-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                  </svg>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                  </svg>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fillRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clipRule="evenodd" />
-                  </svg>
-                </a>
+            </div>
+            
+            <div className="space-y-4">
+              <h4 className="text-lg font-semibold">Quick Links</h4>
+              <div className="flex flex-col space-y-2">
+                <a href="#about" className="text-gray-400 hover:text-accent transition-colors">About Us</a>
+                <a href="#services" className="text-gray-400 hover:text-accent transition-colors">Services</a>
+                <a href="#work" className="text-gray-400 hover:text-accent transition-colors">Our Work</a>
+                <a href="#contact" className="text-gray-400 hover:text-accent transition-colors">Contact</a>
               </div>
             </div>
             
-            <div className="footer-column">
-              <h3 className="footer-title">Services</h3>
-              <a href="#" className="footer-link">Web Development</a>
-              <a href="#" className="footer-link">Mobile Apps</a>
-              <a href="#" className="footer-link">UI/UX Design</a>
-              <a href="#" className="footer-link">Digital Marketing</a>
+            <div className="space-y-4">
+              <h4 className="text-lg font-semibold">Services</h4>
+              <div className="flex flex-col space-y-2">
+                <a href="#" className="text-gray-400 hover:text-accent transition-colors">Web Development</a>
+                <a href="#" className="text-gray-400 hover:text-accent transition-colors">Mobile Apps</a>
+                <a href="#" className="text-gray-400 hover:text-accent transition-colors">UI/UX Design</a>
+                <a href="#" className="text-gray-400 hover:text-accent transition-colors">Digital Marketing</a>
+              </div>
             </div>
             
-            <div className="footer-column">
-              <h3 className="footer-title">Company</h3>
-              <a href="#" className="footer-link">About Us</a>
-              <a href="#" className="footer-link">Our Work</a>
-              <a href="#" className="footer-link">Blog</a>
-              <a href="#" className="footer-link">Contact</a>
-            </div>
-            
-            <div className="footer-column">
-              <h3 className="footer-title">Newsletter</h3>
-              <p className="text-gray-400 mb-4">Subscribe to our newsletter for updates</p>
-              <form className="flex gap-2">
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
-                  className="flex-1 px-4 py-2 bg-white/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent backdrop-blur-sm"
-                />
-                <button type="submit" className="btn btn-primary">
-                  Subscribe
-                </button>
-              </form>
+            <div className="space-y-4">
+              <h4 className="text-lg font-semibold">Contact</h4>
+              <div className="flex flex-col space-y-2 text-gray-400">
+                <p>Chennai, Tamil Nadu 600001</p>
+                <p>+91 98765 43210</p>
+                <p>info@yourcompany.com</p>
+              </div>
             </div>
           </div>
           
-          <div className="footer-bottom">
-            <p>© 2024 Radison. All rights reserved.</p>
-            <div className="flex gap-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+          <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-gray-400 text-sm">
+              © 2024 Radison. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              {[Twitter, Linkedin, Instagram, Facebook, Github].map((Icon, index) => (
+                <a 
+                  key={index}
+                  href="#" 
+                  className="text-gray-400 hover:text-accent transition-colors"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
           </div>
         </div>
